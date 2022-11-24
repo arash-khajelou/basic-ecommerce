@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string("title");
             $table->unsignedInteger("price")->default(0);
             $table->unsignedInteger("count")->default(0);
-            $table->text("description")->default("");
+            $table->text("description");
 
             $table->unsignedBigInteger("color_id")->nullable();
             $table->foreign("color_id")->references("id")->on("colors")

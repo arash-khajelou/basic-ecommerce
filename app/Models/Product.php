@@ -41,6 +41,10 @@ class Product extends Model {
         "image_src"
     ];
 
+    protected $attributes = [
+        "description" => ""
+    ];
+
     protected $casts = [
         "is_available" => "bool"
     ];
