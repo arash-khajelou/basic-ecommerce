@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
  *
  * @property Product[] products
  */
-class Color extends Model {
+class Color extends BaseModel {
     use HasFactory;
 
     protected $table = "colors";

@@ -15,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int id
  * @property string first_name
  * @property string last_name
+ * @property string full_name
  * @property string email
  * @property Carbon email_verified_at
  * @property string password
@@ -26,6 +27,8 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * @property CartRow[] cartRows
  * @property Product[] inCartProducts
+ *
+ * @method static static find(int $id)
  */
 class User extends Authenticatable {
     use HasApiTokens, HasFactory, Notifiable;
@@ -66,6 +69,10 @@ class User extends Authenticatable {
         'is_admin' => 'bool',
         'is_customer' => 'bool',
     ];
+
+    public function getFullNameAttribute(): string {
+        return $this->first_name . " " . $this->last_name;
+    }
 
     public function cartRows(): HasMany {
         return $this->hasMany(CartRow::class, "user_id", "id");

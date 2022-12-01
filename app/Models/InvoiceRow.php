@@ -20,7 +20,7 @@ use Illuminate\Support\Carbon;
  * @property Invoice invoice
  * @property Product product
  */
-class InvoiceRow extends Model {
+class InvoiceRow extends BaseModel {
     use HasFactory;
 
     protected $table = "invoice_rows";

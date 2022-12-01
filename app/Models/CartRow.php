@@ -19,7 +19,7 @@ use Illuminate\Support\Carbon;
  * @property Product product
  *
  */
-class CartRow extends Model {
+class CartRow extends BaseModel {
     use HasFactory;
 
     protected $table = "cart_rows";

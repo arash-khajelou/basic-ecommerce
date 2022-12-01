@@ -26,7 +26,7 @@ use Illuminate\Support\Carbon;
  * @property User[] inCartUsers
  *
  */
-class Product extends Model {
+class Product extends BaseModel {
     use HasFactory;
 
     protected $table = "products";
