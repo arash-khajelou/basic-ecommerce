@@ -28,11 +28,11 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{route("admin.user.index")}}">Users</a></li>
-                        <li><a class="dropdown-item" href="#">Products</a></li>
+                        <li><a class="dropdown-item" href="{{route("admin.product.index")}}">Products</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Invoices</a></li>
+                        <li><a class="dropdown-item" href="{{route("admin.invoice.index")}}">Invoices</a></li>
                     </ul>
                 </li>
             </ul>

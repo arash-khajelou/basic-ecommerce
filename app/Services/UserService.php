@@ -17,9 +17,10 @@ class UserService {
     }
 
     /**
-     * @return User[]|Collection
+     * @param bool $paginate
+     * @return array|Collection|LengthAwarePaginator
      */
-    public static function getAllUsers($paginate = false): array|Collection|LengthAwarePaginator {
+    public static function getAllUsers(bool $paginate = false): array|Collection|LengthAwarePaginator {
         if ($paginate) {
             $users = User::query()->orderBy("id", "DESC")->paginate();
         } else {
