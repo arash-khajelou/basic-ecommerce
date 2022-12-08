@@ -33,6 +33,15 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item" href="{{route("admin.invoice.index")}}">Invoices</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form action="{{route("logout")}}" method="post">
+                                {{csrf_field()}}
+                                <button class="dropdown-item" type="submit">Logout</button>
+                            </form>
+                        </li>
                     </ul>
                 </li>
             </ul>
