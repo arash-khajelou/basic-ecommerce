@@ -32,6 +32,6 @@ class Invoice extends BaseModel {
     }
 
     public function rows(): HasMany {
-        return $this->hasMany(CartRow::class, "invoice_id", "id");
+        return $this->hasMany(InvoiceRow::class, "invoice_id", "id");
     }
 }

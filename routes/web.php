@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\InvoiceController;
+use App\Http\Controllers\Admin\InvoiceController as AdminInvoiceController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\InvoiceController as PublicInvoiceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +37,7 @@ Route::middleware(["auth", "admin"])->group(function () {
 
     Route::resource("admin/user", UserController::class, ["as" => "admin"]);
     Route::resource("admin/product", ProductController::class, ["as" => "admin"]);
-    Route::resource("admin/invoice", InvoiceController::class, ["as" => "admin"]);
+    Route::resource("admin/invoice", AdminInvoiceController::class, ["as" => "admin"]);
 });
 
 Route::middleware(["auth", "customer"])->group(function () {
@@ -47,6 +48,10 @@ Route::middleware(["auth", "customer"])->group(function () {
     Route::patch("cart/{product}/update", [CartController::class, "updateProductInCart"])
         ->name("cart.update-product");
     Route::get("/cart", [CartController::class, "index"])->name("cart.index");
+    Route::get("/cart/submit", [CartController::class, "submitCart"])->name("cart.submit");
+
+    Route::get("/invoice/{invoice}", [PublicInvoiceController::class, "showCheckout"])
+        ->name("invoice.checkout");
 });
 
 require __DIR__ . '/auth.php';

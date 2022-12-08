@@ -26,6 +26,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon created_at
  * @property Carbon updated_at
  *
+ * @property Invoice[] invoices
  * @property CartRow[] cartRows
  * @property Product[] inCartProducts
  *
@@ -82,6 +83,10 @@ class User extends Authenticatable {
 
     public function cartRows(): HasMany {
         return $this->hasMany(CartRow::class, "user_id", "id");
+    }
+
+    public function invoices(): HasMany {
+        return $this->hasMany(Invoice::class, "user_id", "id");
     }
 
     public function inCartProducts(): BelongsToMany {

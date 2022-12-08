@@ -94,4 +94,8 @@ class ProductService {
     public static function getTopProducts(): \Illuminate\Database\Eloquent\Collection|array {
         return Product::query()->orderByRaw(DB::raw("RAND()"))->take(4)->get();
     }
+
+    public static function findById(int $id): Product {
+        return Product::find($id);
+    }
 }

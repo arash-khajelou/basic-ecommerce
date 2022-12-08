@@ -7,6 +7,10 @@
 @section("main_content")
     <h1>This is your cart</h1>
     <hr>
+    <div class="row">
+        <a class="btn btn-sm btn-primary" href="{{route("cart.submit")}}">Checkout</a>
+    </div>
+    <hr>
     @foreach($cart_rows as $index => $cart_row)
         <div class="row" style="margin-bottom: 15px">
             <div class="col-1">{{$index+1}}</div>

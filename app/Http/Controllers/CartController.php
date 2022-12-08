@@ -41,4 +41,11 @@ class CartController extends Controller {
         CartService::updateCartRow($user, $product, $request->get("count"));
         return redirect()->back();
     }
+
+    public function submitCart(Request $request): RedirectResponse {
+        /** @var User $user */
+        $user = $request->user();
+        $invoice = CartService::submitCart($user);
+        return redirect()->route("invoice.checkout", $invoice);
+    }
 }

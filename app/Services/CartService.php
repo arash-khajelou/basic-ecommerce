@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\CartRow;
+use App\Models\Invoice;
+use App\Models\InvoiceRow;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -60,5 +62,21 @@ class CartService {
 
     public static function isProductInCart(User $user, Product $product): bool {
         return $user->cartRows()->where("product_id", $product->id)->count() > 0;
+    }
+
+    public static function submitCart(User $user): Invoice {
+        $invoice_rows = [];
+        foreach (static::getCart($user) as $cart_row) {
+            $product = ProductService::findById($cart_row->product_id);
+            $invoice_row = new InvoiceRow();
+            $invoice_row->product_id = $cart_row->product_id;
+            $invoice_row->product_count = $cart_row->count;
+            $invoice_row->sum = $cart_row->product_id * $cart_row->count;
+            $invoice_row->product_price = $product->price;
+
+            $invoice_rows[] = $invoice_row;
+        }
+
+        return InvoiceService::createInvoice($user, $invoice_rows);
     }
 }
