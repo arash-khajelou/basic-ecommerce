@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +20,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return "Welcome to my shop!";
-});
+Route::get('/', [PublicController::class, "index"])->name("public.index");
+Route::get('/contact-us', [PublicController::class, "contactUs"])->name("public.contacts");
+Route::get("/products", [PublicController::class, "productIndex"])->name("public.product.index");
+Route::get("/product/{product}", [PublicController::class, "productShow"])->name("public.product.show");
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,6 +37,16 @@ Route::middleware(["auth", "admin"])->group(function () {
     Route::resource("admin/user", UserController::class, ["as" => "admin"]);
     Route::resource("admin/product", ProductController::class, ["as" => "admin"]);
     Route::resource("admin/invoice", InvoiceController::class, ["as" => "admin"]);
+});
+
+Route::middleware(["auth", "customer"])->group(function () {
+    Route::any("/cart/{product}/add", [CartController::class, "addProductToCart"])
+        ->name("cart.add-product");
+    Route::any("/cart/{product}/remove", [CartController::class, "removeProductFromCart"])
+        ->name("cart.remove-product");
+    Route::patch("cart/{product}/update", [CartController::class, "updateProductInCart"])
+        ->name("cart.update-product");
+    Route::get("/cart", [CartController::class, "index"])->name("cart.index");
 });
 
 require __DIR__ . '/auth.php';

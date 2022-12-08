@@ -49,6 +49,13 @@ class Product extends BaseModel {
         "is_available" => "bool"
     ];
 
+    public function getImageSrcAttribute(){
+        $image_src = $this->attributes["image_src"] ?? "";
+        if(strlen($image_src) > 0)
+            return $image_src;
+        return "/uploads/basics/not-found.jpg";
+    }
+
     public function color(): BelongsTo {
         return $this->belongsTo(Color::class, "color_id", "id");
     }

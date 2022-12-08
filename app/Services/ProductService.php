@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ProductService {
@@ -85,5 +86,12 @@ class ProductService {
 
     public static function removeProduct(Product $product): ?bool {
         return $product->delete();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|Product[]
+     */
+    public static function getTopProducts(): \Illuminate\Database\Eloquent\Collection|array {
+        return Product::query()->orderByRaw(DB::raw("RAND()"))->take(4)->get();
     }
 }
